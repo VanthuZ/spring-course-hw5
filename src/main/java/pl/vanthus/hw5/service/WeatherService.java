@@ -18,7 +18,7 @@ public class WeatherService {
 
 
 
-    public void getWeather(String city, String unit){
+    public Weather getWeather(String city, String unit){
 
         String url = createUrl(city, unit);
 
@@ -29,14 +29,14 @@ public class WeatherService {
         weather = new Weather(
                 jsonNode.get("weather").findValue("main").asText(),
                 jsonNode.get("weather").findValue("description").asText(),
-                jsonNode.get("weather").findValue("icon").asText(),
+                "http://openweathermap.org/img/wn/" + jsonNode.get("weather").findValue("icon").asText() + "@2x.png",
                 Float.parseFloat(jsonNode.get("main").get("temp").asText()),
                 Float.parseFloat(jsonNode.get("main").get("pressure").asText()),
                 Float.parseFloat(jsonNode.get("main").get("humidity").asText()),
                 Float.parseFloat(jsonNode.get("wind").get("speed").asText())
                 );
 
-        System.out.println(weather);
+       return weather;
 
     }
 
