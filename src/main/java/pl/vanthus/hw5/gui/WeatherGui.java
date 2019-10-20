@@ -8,15 +8,25 @@ import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import pl.vanthus.hw5.service.WeatherService;
 
 @Route("weather")
+@Getter
+@Component
 public class WeatherGui extends VerticalLayout {
 
-    TextField cityField;
-    ListBox<String> unitsListBox;
-    Button getWeatherButton;
+    private TextField cityField;
+    private ListBox<String> unitsListBox;
+    private Button getWeatherButton;
+    private WeatherService weatherService;
 
-    public WeatherGui() {
+    @Autowired
+    public WeatherGui(WeatherService weatherService) {
+        this.weatherService = weatherService;
+
 
         cityField = new TextField("City");
 
@@ -25,7 +35,7 @@ public class WeatherGui extends VerticalLayout {
         unitsListBox.setItems("Fahrenheit", "Celsius", "Kelvin");
 
         getWeatherButton = new Button("Check Weather", new Icon(VaadinIcon.SUN_RISE));
-
+        getWeatherButton.addClickListener(event -> weatherService.getWeather(cityField.getValue(), unitsListBox.getValue()));
 
         add(cityField, unitsLabel, unitsListBox, getWeatherButton);
 
