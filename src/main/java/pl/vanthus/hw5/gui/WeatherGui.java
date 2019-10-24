@@ -34,7 +34,7 @@ public class WeatherGui extends VerticalLayout {
     public WeatherGui(WeatherService weatherService) {
         this.weatherService = weatherService;
 
-        setFields();
+        initFields();
         getWeatherButton.addClickListener(event -> showWeather(weatherService.getWeather(cityField.getValue(), unitsListBox.getValue())));
 
     }
@@ -49,7 +49,7 @@ public class WeatherGui extends VerticalLayout {
         weatherImage.setSrc(weather.getIcon());
     }
 
-    private void setFields(){
+    private void initFields(){
 
         cityField = new TextField("City");
         unitsLabel = new Label("Choose unit");

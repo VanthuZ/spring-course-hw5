@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import lombok.NoArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -13,8 +14,10 @@ import pl.vanthus.hw5.model.Weather;
 @NoArgsConstructor
 public class WeatherService {
 
-    Weather weather;
+    private Weather weather;
 
+    @Value("${APPID}")
+    private String APPID;
 
 
 
@@ -44,11 +47,10 @@ public class WeatherService {
 
         StringBuilder url = new StringBuilder();
 
-        url.append("http://api.openweathermap.org/data/2.5/weather?")
-                .append("q=")
+        url.append("http://api.openweathermap.org/data/2.5/weather?q=")
                 .append(city)
                 .append(convertUnitFromForm(unit))
-                .append("&APPID=7f861b6c901f42b7e79cd9b3cf7b646f");
+                .append(APPID);
 
         return url.toString();
     }
