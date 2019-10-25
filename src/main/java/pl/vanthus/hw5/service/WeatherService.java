@@ -20,16 +20,15 @@ public class WeatherService {
     private String APPID;
 
 
-
-    public Weather getWeather(String city, String unit){
+    public Weather getWeather(String city, String unit) {
 
         String url = createUrl(city, unit);
 
         RestTemplate restTemplate = new RestTemplate();
 
-        JsonNode jsonNode =  restTemplate.getForObject(url, JsonNode.class);
+        JsonNode jsonNode = restTemplate.getForObject(url, JsonNode.class);
 
-        weather = new Weather(
+        return weather = new Weather(
                 jsonNode.get("weather").findValue("main").asText(),
                 jsonNode.get("weather").findValue("description").asText(),
                 "http://openweathermap.org/img/wn/" + jsonNode.get("weather").findValue("icon").asText() + "@2x.png",
@@ -37,34 +36,31 @@ public class WeatherService {
                 Float.parseFloat(jsonNode.get("main").get("pressure").asText()),
                 Float.parseFloat(jsonNode.get("main").get("humidity").asText()),
                 Float.parseFloat(jsonNode.get("wind").get("speed").asText())
-                );
-
-       return weather;
+        );
 
     }
 
-    private String createUrl(String city, String unit){
+    private String createUrl(String city, String unit) {
 
         StringBuilder url = new StringBuilder();
 
-        url.append("http://api.openweathermap.org/data/2.5/weather?q=")
+        return url.append("http://api.openweathermap.org/data/2.5/weather?q=")
                 .append(city)
                 .append(convertUnitFromForm(unit))
-                .append(APPID);
-
-        return url.toString();
+                .append(APPID)
+                .toString();
     }
 
-    private String convertUnitFromForm(String unit){
+    private String convertUnitFromForm(String unit) {
 
-       if(unit.equals("Fahrenheit")){
-           unit = "&units=imperial";
-       }else if(unit.equals("Celsius")){
-           unit = "&units=metric";
-       }else{
-           unit = "&units=default";
-       }
+        if (unit.equals("Fahrenheit")) {
+            unit = "&units=imperial";
+        } else if (unit.equals("Celsius")) {
+            unit = "&units=metric";
+        } else {
+            unit = "&units=default";
+        }
 
-       return unit;
+        return unit;
     }
 }

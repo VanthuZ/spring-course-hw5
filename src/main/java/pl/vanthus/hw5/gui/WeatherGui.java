@@ -39,7 +39,7 @@ public class WeatherGui extends VerticalLayout {
 
     }
 
-    private void showWeather(Weather weather){
+    private void showWeather(Weather weather) {
 
         weatherDescriptionLabel.setText("Description: " + weather.getDescription());
         tempLabel.setText("Temperature: " + weather.getTemp());
@@ -49,7 +49,7 @@ public class WeatherGui extends VerticalLayout {
         weatherImage.setSrc(weather.getIcon());
     }
 
-    private void initFields(){
+    private void initFields() {
 
         cityField = new TextField("City");
         unitsLabel = new Label("Choose unit");
@@ -64,6 +64,6 @@ public class WeatherGui extends VerticalLayout {
         getWeatherButton = new Button("Check Weather", new Icon(VaadinIcon.SUN_RISE));
 
         add(cityField, unitsLabel, unitsListBox, getWeatherButton);
-        add(weatherDescriptionLabel, weatherImage, tempLabel, pressureLabel, humidityLabel,windSpeedLabel);
+        add(weatherDescriptionLabel, weatherImage, tempLabel, pressureLabel, humidityLabel, windSpeedLabel);
     }
 }
